@@ -8,7 +8,8 @@
 			"type": "image\/png"
 		}
 	],
-	"theme_color": "#282c37",
+	"theme_color": "#c22047",
+	"background_color": "#800000",
 	"display": "standalone",
 	"start_url": "/web/timelines/home"
 }
