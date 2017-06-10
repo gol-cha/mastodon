@@ -42,24 +42,24 @@ class Account < ApplicationRecord
   MENTION_RE = /(?:^|[^\/[:word:]])@([a-z0-9_]+(?:@[a-z0-9\.\-]+[a-z0-9]+)?)/i
 
   include AccountAvatar
+  include AccountFinderConcern
   include AccountHeader
   include AccountInteractions
   include Attachmentable
   include Remotable
-  include Targetable
 
   # Local users
   has_one :user, inverse_of: :account
 
   validates :username, presence: true
-  validates :username, uniqueness: { scope: :domain, case_sensitive: true }, unless: :local?
+
+  # Remote user validations
+  validates :username, uniqueness: { scope: :domain, case_sensitive: true }, if: -> { !local? && username_changed? }
 
   # Local user validations
-  with_options if: :local? do
-    validates :username, format: { with: /\A[a-z0-9_]+\z/i }, uniqueness: { scope: :domain, case_sensitive: false }, length: { maximum: 30 }
-    validates :display_name, length: { maximum: 30 }
-    validates :note, length: { maximum: 160 }
-  end
+  validates :username, format: { with: /\A[a-z0-9_]+\z/i }, uniqueness: { scope: :domain, case_sensitive: false }, length: { maximum: 30 }, unreserved: true, if: -> { local? && username_changed? }
+  validates :display_name, length: { maximum: 30 }, if: -> { local? && display_name_changed? }
+  validates :note, length: { maximum: 160 }, if: -> { local? && note_changed? }
 
   # Timelines
   has_many :stream_entries, inverse_of: :account, dependent: :destroy
@@ -162,27 +162,6 @@ class Account < ApplicationRecord
   end
 
   class << self
-    def find_local!(username)
-      find_remote!(username, nil)
-    end
-
-    def find_remote!(username, domain)
-      return if username.blank?
-      where('lower(accounts.username) = ?', username.downcase).where(domain.nil? ? { domain: nil } : 'lower(accounts.domain) = ?', domain&.downcase).take!
-    end
-
-    def find_local(username)
-      find_local!(username)
-    rescue ActiveRecord::RecordNotFound
-      nil
-    end
-
-    def find_remote(username, domain)
-      find_remote!(username, domain)
-    rescue ActiveRecord::RecordNotFound
-      nil
-    end
-
     def triadic_closures(account, limit: 5, offset: 0)
       sql = <<-SQL.squish
         WITH first_degree AS (
