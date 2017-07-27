@@ -5,7 +5,7 @@ $ui-highlight-color: #c22047; // beni
 @import 'application';
 
 .landing-page .header-wrapper {
-  background-image: url("../images/background-photo.jpg");
-  background-size: cover;
-  background-position: center;
+  background-image: url("../images/background-photo.jpg") !important;
+  background-size: cover !important;
+  background-position: center !important;
 }
