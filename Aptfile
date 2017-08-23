@@ -7,3 +7,5 @@ libprotobuf-dev
 libxdamage1
 libxfixes3
 protobuf-compiler
+libjpeg-turbo-progs
+optipng

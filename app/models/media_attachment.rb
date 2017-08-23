@@ -28,7 +28,26 @@ class MediaAttachment < ApplicationRecord
   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'].freeze
   VIDEO_MIME_TYPES = ['video/webm', 'video/mp4'].freeze
 
-  IMAGE_STYLES = { original: '1280x1280>', small: '400x400>' }.freeze
+  IMAGE_STYLES = {
+    original: {
+      geometry: '1280x1280>',
+      processor_options: {
+        compression: {
+          png: '-o 0 -quiet',
+          jpeg: '-copy none -optimize -perfect'
+        },
+      },
+    },
+    small: {
+      geometry: '400x400>',
+      processor_options: {
+        compression: {
+          png: '-o 0 -quiet',
+          jpeg: '-copy none -optimize -perfect'
+        },
+      },
+    },
+  }.freeze
   VIDEO_STYLES = {
     small: {
       convert_options: {
@@ -46,8 +65,7 @@ class MediaAttachment < ApplicationRecord
 
   has_attached_file :file,
                     styles: ->(f) { file_styles f },
-                    processors: ->(f) { file_processors f },
-                    convert_options: { all: '-quality 90 -strip' }
+                    processors: ->(f) { file_processors f }
 
   include Remotable
 
@@ -109,7 +127,7 @@ class MediaAttachment < ApplicationRecord
       elsif VIDEO_MIME_TYPES.include? f.file_content_type
         [:video_transcoder]
       else
-        [:thumbnail]
+        [:thumbnail, :compression]
       end
     end
   end
