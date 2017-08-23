@@ -38,7 +38,7 @@ module Mastodon
 
     # specify git tag or commit hash here
     def source_tag
-      mevo-xyz
+      'mevo-xyz'
     end
 
     def source_url
