@@ -33,7 +33,7 @@ class MediaAttachment < ApplicationRecord
       geometry: '1280x1280>',
       processor_options: {
         compression: {
-          png: '-o 1 -quiet',
+          png: '-o 0 -quiet',
           jpeg: '-copy none -optimize -perfect'
         },
       },
@@ -42,7 +42,7 @@ class MediaAttachment < ApplicationRecord
       geometry: '400x400>',
       processor_options: {
         compression: {
-          png: '-o 1 -quiet',
+          png: '-o 0 -quiet',
           jpeg: '-copy none -optimize -perfect'
         },
       },
