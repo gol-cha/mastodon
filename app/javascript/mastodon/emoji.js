@@ -47,3 +47,26 @@ const emojify = (str, customEmojis = {}) => {
 };
 
 export default emojify;
+
+export const buildCustomEmojis = customEmojis => {
+  const emojis = [];
+
+  customEmojis.forEach(emoji => {
+    const shortcode = emoji.get('shortcode');
+    const url       = emoji.get('url');
+    const name      = shortcode.replace(':', '');
+
+    emojis.push({
+      id: name,
+      name,
+      short_names: [name],
+      text: '',
+      emoticons: [],
+      keywords: [name],
+      imageUrl: url,
+      custom: true,
+    });
+  });
+
+  return emojis;
+};

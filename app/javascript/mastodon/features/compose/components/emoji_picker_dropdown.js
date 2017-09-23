@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { defineMessages, injectIntl } from 'react-intl';
-import { EmojiPicker as EmojiPickerAsync } from '../../ui/util/async-components';
+import { Picker, Emoji } from 'emoji-mart';
 import { Overlay } from 'react-overlays';
 import classNames from 'classnames';
+import ImmutablePropTypes from 'react-immutable-proptypes';
 
 const messages = defineMessages({
   emoji: { id: 'emoji_button.label', defaultMessage: 'Insert emoji' },
@@ -23,8 +24,6 @@ const messages = defineMessages({
 });
 
 const assetHost = process.env.CDN_HOST || '';
-
-let EmojiPicker, Emoji; // load asynchronously
 
 const backgroundImageFn = () => `${assetHost}/emoji/sheet.png`;
 
@@ -130,7 +129,7 @@ class ModifierPicker extends React.PureComponent {
 class EmojiPickerMenu extends React.PureComponent {
 
   static propTypes = {
-    loading: PropTypes.bool,
+    custom_emojis: ImmutablePropTypes.list,
     onClose: PropTypes.func.isRequired,
     onPick: PropTypes.func.isRequired,
     style: PropTypes.object,
@@ -142,7 +141,6 @@ class EmojiPickerMenu extends React.PureComponent {
 
   static defaultProps = {
     style: {},
-    loading: true,
     placement: 'bottom',
   };
 
@@ -194,6 +192,10 @@ class EmojiPickerMenu extends React.PureComponent {
   }
 
   handleClick = emoji => {
+    if (!emoji.native) {
+      emoji.native = emoji.colons;
+    }
+
     this.props.onClose();
     this.props.onPick(emoji);
   }
@@ -213,18 +215,13 @@ class EmojiPickerMenu extends React.PureComponent {
   }
 
   render () {
-    const { loading, style, intl } = this.props;
-
-    if (loading) {
-      return <div style={{ width: 299 }} />;
-    }
-
+    const { style, intl } = this.props;
     const title = intl.formatMessage(messages.emoji);
     const { modifierOpen, modifier } = this.state;
 
     return (
       <div className={classNames('emoji-picker-dropdown__menu', { selecting: modifierOpen })} style={style} ref={this.setRef}>
-        <EmojiPicker
+        <Picker
           perLine={8}
           emojiSize={22}
           sheetSize={32}
@@ -255,13 +252,13 @@ class EmojiPickerMenu extends React.PureComponent {
 export default class EmojiPickerDropdown extends React.PureComponent {
 
   static propTypes = {
+    custom_emojis: ImmutablePropTypes.list,
     intl: PropTypes.object.isRequired,
     onPickEmoji: PropTypes.func.isRequired,
   };
 
   state = {
     active: false,
-    loading: false,
   };
 
   setRef = (c) => {
@@ -270,18 +267,6 @@ export default class EmojiPickerDropdown extends React.PureComponent {
 
   onShowDropdown = () => {
     this.setState({ active: true });
-
-    if (!EmojiPicker) {
-      this.setState({ loading: true });
-
-      EmojiPickerAsync().then(EmojiMart => {
-        EmojiPicker = EmojiMart.Picker;
-        Emoji = EmojiMart.Emoji;
-        this.setState({ loading: false });
-      }).catch(() => {
-        this.setState({ loading: false });
-      });
-    }
   }
 
   onHideDropdown = () => {
@@ -289,7 +274,7 @@ export default class EmojiPickerDropdown extends React.PureComponent {
   }
 
   onToggle = (e) => {
-    if (!this.state.loading && (!e.key || e.key === 'Enter')) {
+    if (!e.key || e.key === 'Enter') {
       if (this.state.active) {
         this.onHideDropdown();
       } else {
@@ -315,20 +300,24 @@ export default class EmojiPickerDropdown extends React.PureComponent {
   render () {
     const { intl, onPickEmoji } = this.props;
     const title = intl.formatMessage(messages.emoji);
-    const { active, loading } = this.state;
+    const { active } = this.state;
 
     return (
       <div className='emoji-picker-dropdown' onKeyDown={this.handleKeyDown}>
         <div ref={this.setTargetRef} className='emoji-button' title={title} aria-label={title} aria-expanded={active} role='button' onClick={this.onToggle} onKeyDown={this.onToggle} tabIndex={0}>
           <img
-            className={classNames('emojione', { 'pulse-loading': active && loading })}
+            className='emojione'
             alt='🙂'
             src={`${assetHost}/emoji/1f602.svg`}
           />
         </div>
 
         <Overlay show={active} placement='bottom' target={this.findTarget}>
-          <EmojiPickerMenu loading={loading} onClose={this.onHideDropdown} onPick={onPickEmoji} />
+          <EmojiPickerMenu
+            custom_emojis={this.props.custom_emojis}
+            onClose={this.onHideDropdown}
+            onPick={onPickEmoji}
+          />
         </Overlay>
       </div>
     );
