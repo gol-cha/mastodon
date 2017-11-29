@@ -32,7 +32,7 @@ class MediaAttachment < ApplicationRecord
   IMAGE_MIME_TYPES = ['image/jpeg', 'image/png', 'image/gif'].freeze
   VIDEO_MIME_TYPES = ['video/webm', 'video/mp4'].freeze
 
-  IMAGE_STYLES = { original: '2560x2560>', small: '400x400>' }.freeze
+  IMAGE_STYLES = { original: '2560x2560>', small: ['400x400>', :webp] }.freeze
   VIDEO_STYLES = {
     small: {
       convert_options: {
