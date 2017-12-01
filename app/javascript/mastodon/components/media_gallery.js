@@ -119,12 +119,14 @@ class Item extends React.PureComponent {
       const previewUrl = attachment.get('preview_url');
       const previewWidth = attachment.getIn(['meta', 'small', 'width']);
 
+      const largeUrl = attachment.get('large_url');
+      const largeWidth = attachment.getIn(['meta', 'large', 'width']);
+
       const originalUrl = attachment.get('url');
-      const originalWidth = attachment.getIn(['meta', 'original', 'width']);
 
-      const hasSize = typeof originalWidth === 'number' && typeof previewWidth === 'number';
+      const hasSize = typeof largeWidth === 'number' && typeof previewWidth === 'number';
 
-      const srcSet = hasSize ? `${originalUrl} ${originalWidth}w, ${previewUrl} ${previewWidth}w` : null;
+      const srcSet = hasSize ? `${largeUrl} ${largeWidth}w, ${previewUrl} ${previewWidth}w` : null;
       const sizes = hasSize ? `(min-width: 1025px) ${320 * (width / 100)}px, ${width}vw` : null;
 
       thumbnail = (
@@ -134,7 +136,10 @@ class Item extends React.PureComponent {
           onClick={this.handleClick}
           target='_blank'
         >
-          <img src={previewUrl} srcSet={srcSet} sizes={sizes} alt={attachment.get('description')} title={attachment.get('description')} />
+          <picture>
+            <source srcSet={srcSet} sizes={sizes} type='image/webp' />
+            <img src={originalUrl} alt={attachment.get('description')} title={attachment.get('description')} />
+          </picture>
         </a>
       );
     } else if (attachment.get('type') === 'gifv') {
