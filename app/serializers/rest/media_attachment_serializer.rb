@@ -3,7 +3,7 @@
 class REST::MediaAttachmentSerializer < ActiveModel::Serializer
   include RoutingHelper
 
-  attributes :id, :type, :url, :preview_url, :large_url,
+  attributes :id, :type, :url, :preview_url,
              :remote_url, :text_url, :meta,
              :description
 
@@ -28,14 +28,6 @@ class REST::MediaAttachmentSerializer < ActiveModel::Serializer
       media_proxy_url(object.id, :small)
     else
       full_asset_url(object.file.url(:small))
-    end
-  end
-
-  def large_url
-    if object.needs_redownload?
-      media_proxy_url(object.id, :large)
-    else
-      full_asset_url(object.file.url(:large))
     end
   end
 

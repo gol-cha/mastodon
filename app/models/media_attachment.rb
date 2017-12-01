@@ -34,7 +34,6 @@ class MediaAttachment < ApplicationRecord
 
   IMAGE_STYLES = {
     original: '2560x2560>',
-    large: ['1280x1280>', :webp],
     small: ['400x400>', :webp]
   }.freeze
   VIDEO_STYLES = {
