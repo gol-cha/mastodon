@@ -38,7 +38,7 @@ class FetchLinkCardService < BaseService
     @card ||= PreviewCard.new(url: @url)
     res     = Request.new(:head, @url).perform
 
-    return if res.code != 200 || res.mime_type != 'text/html'
+    return if res.code != 405 && (res.code != 200 || res.mime_type != 'text/html')
 
     attempt_oembed || attempt_opengraph
   end
@@ -87,7 +87,9 @@ class FetchLinkCardService < BaseService
     when 'link'
       @card.image = URI.parse(response.thumbnail_url) if response.respond_to?(:thumbnail_url)
     when 'photo'
+      return false unless response.respond_to?(:url)
       @card.embed_url = response.url
+      @card.image     = URI.parse(response.url)
       @card.width     = response.width.presence  || 0
       @card.height    = response.height.presence || 0
     when 'video'
