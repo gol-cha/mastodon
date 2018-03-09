@@ -142,6 +142,8 @@ class Item extends React.PureComponent {
       const previewWidth = attachment.getIn(['meta', 'small', 'width'])
 
       const originalUrl    = attachment.get('url');
+      const originalWidth  = attachment.getIn(['meta', 'original', 'width']);
+      const originalHeight = attachment.getIn(['meta', 'original', 'height']);
 
       const largeUrl = attachment.get('large_url');
       const largeWidth  = attachment.getIn(['meta', 'large', 'width']);
@@ -156,9 +158,9 @@ class Item extends React.PureComponent {
       const focusY     = attachment.getIn(['meta', 'focus', 'y']);
       const imageStyle = {};
 
-      if (largeWidth && largeHeight && containerWidth && containerHeight && focusX && focusY) {
-        const widthRatio  = largeWidth / (containerWidth * (width / 100));
-        const heightRatio = largeHeight / (containerHeight * (height / 100));
+      if (originalWidth && originalHeight && containerWidth && containerHeight && focusX && focusY) {
+        const widthRatio  = originalWidth / (containerWidth * (width / 100));
+        const heightRatio = originalHeight / (containerHeight * (height / 100));
 
         let hShift = 0;
         let vShift = 0;
