@@ -39,6 +39,10 @@ class StatusesIndex < Chewy::Index
 	  english_stemmer
         ),
       },
+      text: {
+	tokenizer: 'kuromoji_tokenizer',
+	type: 'custom',
+      },
     },
   }
 
@@ -61,7 +65,7 @@ class StatusesIndex < Chewy::Index
     root date_detection: false do
       field :account_id, type: 'long'
 
-      field :text, type: 'text', value: ->(status) { [status.spoiler_text, Formatter.instance.plaintext(status)].join("\n\n") } do
+      field :text, type: 'text', analyzer: 'text', value: ->(status) { [status.spoiler_text, Formatter.instance.plaintext(status)].join("\n\n") } do
         field :stemmed, type: 'text', analyzer: 'content'
       end
 
