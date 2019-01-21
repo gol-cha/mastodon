@@ -69,8 +69,8 @@ RUN apk -U upgrade \
 COPY Gemfile Gemfile.lock package.json yarn.lock .yarnclean /mastodon/
 
 RUN bundle config build.nokogiri --use-system-libraries --with-iconv-lib=/usr/local/lib --with-iconv-include=/usr/local/include \
- && bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --without test development \
- && yarn install --pure-lockfile --ignore-engines \
+ && bundle install -j$(getconf _NPROCESSORS_ONLN) --deployment --without test development
+RUN yarn install --pure-lockfile --ignore-engines --network-timeout=1800000 \
  && yarn cache clean
 
 RUN addgroup -g ${GID} mastodon && adduser -h /mastodon -s /bin/sh -D -G mastodon -u ${UID} mastodon \
