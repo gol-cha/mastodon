@@ -38,6 +38,9 @@ services:
     image: tootsuite/mastodon
     restart: always
     env_file: .env.production
+    environment:
+      - WEB_CONCURRENCY=1
+      - MAX_THREADS=16
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000 -b '0.0.0.0'"
     networks:
       - external_network
@@ -76,8 +79,8 @@ services:
     restart: always
     env_file: .env.production
     environment:
-      - DB_POOL=10    
-    command: bundle exec sidekiq -c 10
+      - DB_POOL=16    
+    command: bundle exec sidekiq -c 16
     depends_on:
       - db
       - redis
