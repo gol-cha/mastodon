@@ -62,7 +62,7 @@ COPY Gemfile* package.json yarn.lock /opt/mastodon/
 
 RUN cd /opt/mastodon && \
 	bundle install -j$(nproc) --deployment --without development test && \
-	yarn install --pure-lockfile
+	yarn install --pure-lockfile --network-timeout 180000
 
 FROM ubuntu:18.04
 
