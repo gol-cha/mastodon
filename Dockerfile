@@ -99,8 +99,8 @@ RUN apt -y --no-install-recommends install \
 
 # Add tini
 ENV TINI_VERSION="0.18.0"
-ENV TINI_SUM="12d20136605531b09a2c2dac02ccee85e1b874eb322ef6baf7561cd93f93c855"
-ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini /tini
+ENV TINI_SUM="01b54b934d5f5deb32aa4eb4b0f71d0e76324f4f0237cc262d59376bf2bdc269"
+ADD https://github.com/krallin/tini/releases/download/v${TINI_VERSION}/tini-armhf /tini
 RUN echo "$TINI_SUM tini" | sha256sum -c -
 RUN chmod +x /tini
 
