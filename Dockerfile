@@ -1,16 +1,23 @@
-FROM node:8.16.0-stretch-slim as node
 FROM ubuntu:18.04 as build-dep
 
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
-# Install essentials
+# Install Node
+ENV NODE_VER="8.16.0"
 RUN	echo "Etc/UTC" > /etc/localtime && \
 	apt update && \
-	apt -y install wget make gcc g++
+	apt -y install wget make gcc g++ python && \
+	cd ~ && \
+	wget https://nodejs.org/download/release/v$NODE_VER/node-v$NODE_VER.tar.gz && \
+	tar xf node-v$NODE_VER.tar.gz && \
+	cd node-v$NODE_VER && \
+	./configure --prefix=/opt/node && \
+	make -j$(nproc) > /dev/null && \
+	make install
 
 # Install jemalloc
-ENV JE_VER="5.1.0"
+ENV JE_VER="5.2.0"
 RUN apt update && \
 	apt -y install autoconf && \
 	cd ~ && \
@@ -23,7 +30,7 @@ RUN apt update && \
 	make install_bin install_include install_lib
 
 # Install ruby
-ENV RUBY_VER="2.6.1"
+ENV RUBY_VER="2.6.3"
 ENV CPPFLAGS="-I/opt/jemalloc/include"
 ENV LDFLAGS="-L/opt/jemalloc/lib/"
 RUN apt update && \
@@ -42,14 +49,10 @@ RUN apt update && \
 	make -j$(nproc) > /dev/null && \
 	make install
 
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=node /opt/yarn-* /opt/yarn
+ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin"
 
-ENV PATH="${PATH}:/opt/ruby/bin:/opt/yarn/bin"
-
-RUN gem install bundler && \
+RUN npm install -g yarn && \
+	gem install bundler && \
 	apt update && \
 	apt -y install git libicu-dev libidn11-dev \
 	libpq-dev libprotobuf-dev protobuf-compiler
@@ -63,15 +66,12 @@ RUN cd /opt/mastodon && \
 FROM ubuntu:18.04
 
 # Copy over all the langs needed for runtime
-COPY --from=node /usr/local/bin/node /usr/local/bin/node
-COPY --from=node /usr/local/lib/node_modules /usr/local/lib/node_modules
-COPY --from=node /usr/local/bin/npm /usr/local/bin/npm
-COPY --from=node /opt/yarn-* /opt/yarn
+COPY --from=build-dep /opt/node /opt/node
 COPY --from=build-dep /opt/ruby /opt/ruby
 COPY --from=build-dep /opt/jemalloc /opt/jemalloc
 
 # Add more PATHs to the PATH
-ENV PATH="${PATH}:/opt/ruby/bin:/opt/yarn/bin:/opt/mastodon/bin"
+ENV PATH="${PATH}:/opt/ruby/bin:/opt/node/bin:/opt/mastodon/bin"
 
 # Create the mastodon user
 ARG UID=991
