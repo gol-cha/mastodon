@@ -41,7 +41,7 @@ services:
     environment:
       - WEB_CONCURRENCY=1
       - MAX_THREADS=16
-    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000 -b '[::]'"
+    command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     networks:
       - external_network
       - internal_network
@@ -61,7 +61,7 @@ services:
     image: tootsuite/mastodon
     restart: always
     env_file: .env.production
-    command: yarn start
+    command: node ./streaming
     networks:
       - external_network
       - internal_network
