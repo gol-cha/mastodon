@@ -3,8 +3,8 @@ FROM ubuntu:18.04 as build-dep
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
-# Install Node
-ENV NODE_VER="10.16.3"
+# Install Node v12 (LTS)
+ENV NODE_VER="12.14.0"  
 ENV NODE_ARCH="linux-armv7l"
 RUN	echo "Etc/UTC" > /etc/localtime && \
 	apt update && \
@@ -124,3 +124,4 @@ RUN cd ~ && \
 # Set the work dir and the container entry point
 WORKDIR /opt/mastodon
 ENTRYPOINT ["/tini", "--"]
+EXPOSE 3000 4000
