@@ -4,7 +4,7 @@ FROM ubuntu:18.04 as build-dep
 SHELL ["bash", "-c"]
 
 # Install Node v12 (LTS)
-ENV NODE_VER="12.14.0"  
+ENV NODE_VER="10.18.1"  
 ENV NODE_ARCH="linux-armv7l"
 RUN	echo "Etc/UTC" > /etc/localtime && \
 	apt update && \
