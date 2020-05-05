@@ -45,6 +45,7 @@ services:
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     networks:
       - internal_network
+      - external_network
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:3000/health || exit 1"]
     depends_on:
@@ -62,6 +63,7 @@ services:
     command: node ./streaming
     networks:
       - internal_network
+      - external_network
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
     depends_on:
@@ -100,24 +102,6 @@ services:
 #    networks:
 #      - external_network
 #      - internal_network
-
-  front:
-    image: nginx
-    volumes:
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf:ro
-      - ./letsencrypt/etc:/etc/letsencrypt:ro
-      - ./letsencrypt/log:/var/log/letsencrypt:ro
-      - ./public:/home/mastodon/live/public:ro
-      - /home/kajica/portable/mastodon/public-system:/home/mastodon/live/public/system:ro
-    ports:
-      - 80:80
-      - 443:443
-    depends_on:
-      - web
-      - streaming
-    networks:
-      - external_network
-      - internal_network
 
 networks:
   external_network:

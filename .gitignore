@@ -42,7 +42,6 @@ config/deploy/*
 postgres
 redis
 elasticsearch
-letsencrypt
 
 # Ignore Apple files
 .DS_Store
