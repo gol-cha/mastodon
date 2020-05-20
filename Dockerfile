@@ -3,8 +3,8 @@ FROM ubuntu:18.04 as build-dep
 # Use bash for the shell
 SHELL ["bash", "-c"]
 
-# Install Node v10 (LTS)
-ENV NODE_VER="10.20.1"  
+# Install Node v12 (LTS)
+ENV NODE_VER="12.16.3"  
 RUN	ARCH= && \
     dpkgArch="$(dpkg --print-architecture)" && \
   case "${dpkgArch##*-}" in \
@@ -129,6 +129,7 @@ ENV BIND="[::]"
 USER mastodon
 
 # Precompile assets
+ENV NODE_OPTIONS="--max-old-space-size=1024"
 RUN cd ~ && \
 	OTP_SECRET=precompile_placeholder SECRET_KEY_BASE=precompile_placeholder rails assets:precompile && \
 	yarn cache clean
