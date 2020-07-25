@@ -105,17 +105,10 @@ GEM
       aws-sdk-core (~> 3, >= 3.102.1)
       aws-sdk-kms (~> 1)
       aws-sigv4 (~> 1.1)
-<<<<<<< HEAD
-    aws-sigv4 (1.1.3)
-      aws-eventstream (~> 1.0, >= 1.0.2)
-    bcrypt (3.1.12)
-    better_errors (2.7.0)
-=======
     aws-sigv4 (1.2.1)
       aws-eventstream (~> 1, >= 1.0.2)
-    bcrypt (3.1.13)
+    bcrypt (3.1.12)
     better_errors (2.7.1)
->>>>>>> v3.2.0rc1
       coderay (>= 1.0.0)
       erubi (>= 1.0.0)
       rack (>= 0.9.0)
