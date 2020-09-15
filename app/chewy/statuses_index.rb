@@ -4,6 +4,9 @@ class StatusesIndex < Chewy::Index
   settings index: { refresh_interval: '15m' }, analysis: {
     analyzer: {
       content: {
+        char_filter: %w(
+          icu_normalizer                    
+        ),
         type: 'custom', 
         tokenizer: 'kuromoji_tokenizer',
         filter: %w(
