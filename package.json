@@ -90,7 +90,7 @@
     "cssnano": "^4.1.10",
     "detect-passive-events": "^2.0.1",
     "dotenv": "^8.2.0",
-    "emoji-mart": "gol-cha/emoji-mart#a5bfcd7c3dbae3be126fe89d1e7e303f2d87fe44",
+    "emoji-mart": "gol-cha/emoji-mart#3c1cb5aa1ace7f0533be0e6ed762e89ed4f7f07b",
     "es6-symbol": "^3.1.3",
     "escape-html": "^1.0.3",
     "exif-js": "^2.3.0",
