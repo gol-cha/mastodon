@@ -48,6 +48,10 @@
   overflow: hidden;
   transition: color .1s ease-out;
   cursor: pointer;
+  margin: 0;
+  box-shadow: none;
+  background: none;
+  border: none;
 
   &:hover {
     color: darken($lighter-text-color, 4%);
@@ -169,10 +173,25 @@
   }
 }
 
+.emoji-mart-category-list {
+  margin: 0;
+  padding: 0;
+
+  li {
+    list-style: none;
+    display: inline-block;
+  }
+}
+
 .emoji-mart-emoji {
   position: relative;
   display: inline-block;
   font-size: 0;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
 
   span {
     width: 22px;
