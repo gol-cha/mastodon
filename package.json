@@ -22,8 +22,7 @@
   },
   "browserslist": [
     "last 2 versions",
-    "IE >= 11",
-    "iOS >= 9",
+    "not IE 11",
     "not dead"
   ],
   "jest": {
