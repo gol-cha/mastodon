@@ -43,7 +43,8 @@ module.exports = merge(sharedConfig, {
 
   plugins: [
     new CompressionPlugin({
-      filename: '[path][base].gz[query]',
+      filename: '[path][base].br[query]',
+      algorithm: "brotliCompress",
       cache: true,
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/,
     }),
@@ -77,6 +78,7 @@ module.exports = merge(sharedConfig, {
       ],
       excludes: [
         '**/*.gz',
+        '**/*.br',
         '**/*.map',
         'stats.json',
         'report.html',
