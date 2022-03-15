@@ -3,28 +3,30 @@ services:
 
   db:
     restart: always
-    image: postgres:9.6-alpine
+    image: postgres:14-alpine
     shm_size: 256mb
     networks:
       - internal_network
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "postgres"]
     volumes:
-      - /home/kajica/portable/mastodon/postgres:/var/lib/postgresql/data
+      - ./postgres14:/var/lib/postgresql/data
+    environment:
+      - "POSTGRES_HOST_AUTH_METHOD=trust"
 
   redis:
     restart: always
-    image: redis:6.0-alpine
+    image: redis:6-alpine
     networks:
       - internal_network
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
     volumes:
-      - /home/kajica/portable/mastodon/live/redis:/data
+      - ./redis:/data
 
 #  es:
 #    restart: always
-#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:6.8.10
+#    image: docker.elastic.co/elasticsearch/elasticsearch-oss:7.10.2
 #    environment:
 #      - "ES_JAVA_OPTS=-Xms512m -Xmx512m"
 #      - "cluster.name=es-mastodon"
@@ -43,48 +45,47 @@ services:
 
   web:
     build: .
-    image: tootsuite/mastodon:v3.4.6
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
-    environment:
-      - WEB_CONCURRENCY=1
-      - MAX_THREADS=16
     command: bash -c "rm -f /mastodon/tmp/pids/server.pid; bundle exec rails s -p 3000"
     networks:
-      - internal_network
       - external_network
+      - internal_network
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:3000/health || exit 1"]
+    ports:
+      - "127.0.0.1:3000:3000"
     depends_on:
       - db
       - redis
 #      - es
     volumes:
-      - /home/kajica/portable/mastodon/public-system:/mastodon/public/system
+      - ./public/system:/mastodon/public/system
 
   streaming:
     build: .
-    image: tootsuite/mastodon:v3.4.6
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
     command: node ./streaming
     networks:
-      - internal_network
       - external_network
+      - internal_network
     healthcheck:
       test: ["CMD-SHELL", "wget -q --spider --proxy=off localhost:4000/api/v1/streaming/health || exit 1"]
+    ports:
+      - "127.0.0.1:4000:4000"
     depends_on:
       - db
       - redis
 
   sidekiq:
     build: .
-    image: tootsuite/mastodon:v3.4.6
+    image: tootsuite/mastodon
     restart: always
     env_file: .env.production
-    environment:
-      - DB_POOL=16    
-    command: bundle exec sidekiq -c 16
+    command: bundle exec sidekiq
     depends_on:
       - db
       - redis
@@ -92,7 +93,10 @@ services:
       - external_network
       - internal_network
     volumes:
-      - /home/kajica/portable/mastodon/public-system:/mastodon/public/system
+      - ./public/system:/mastodon/public/system
+    healthcheck:
+      test: ["CMD-SHELL", "ps aux | grep '[s]idekiq\ 6' || false"]
+
 ## Uncomment to enable federation with tor instances along with adding the following ENV variables
 ## http_proxy=http://privoxy:8118
 ## ALLOW_ACCESS_TO_HIDDEN_SERVICE=true
