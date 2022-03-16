@@ -21,9 +21,8 @@
     "url": "https://github.com/mastodon/mastodon.git"
   },
   "browserslist": [
-    "last 2 versions",
-    "not IE 11",
-    "not dead"
+    "defaults",
+    "not IE 11"
   ],
   "jest": {
     "testEnvironment": "jsdom",
