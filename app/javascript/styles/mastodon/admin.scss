@@ -103,7 +103,7 @@ $content-width: 840px;
         overflow: hidden;
         text-overflow: ellipsis;
 
-        i.fa {
+        i.fa-solid {
           margin-right: 5px;
         }
 
@@ -258,7 +258,7 @@ $content-width: 840px;
       box-shadow: none;
     }
 
-    .directory__tag .table-action-link .fa {
+    .directory__tag .table-action-link .fa-solid {
       color: inherit;
     }
 

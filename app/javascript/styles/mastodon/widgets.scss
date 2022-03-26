@@ -216,7 +216,7 @@
   &__message {
     margin-bottom: 15px;
 
-    .fa {
+    .fa-solid {
       margin-right: 5px;
       color: $darker-text-color;
     }
@@ -329,7 +329,7 @@
       overflow: hidden;
       text-overflow: ellipsis;
 
-      .fa {
+      .fa-solid {
         color: $darker-text-color;
       }
 
@@ -470,7 +470,7 @@
     width: 21px;
   }
 
-  .fa {
+  .fa-solid {
     font-size: 16px;
 
     &.active {
