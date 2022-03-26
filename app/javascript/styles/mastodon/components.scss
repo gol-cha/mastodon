@@ -809,7 +809,7 @@
     &:hover {
       text-decoration: underline;
 
-      .fa {
+      .fa-solid {
         color: lighten($dark-text-color, 7%);
       }
     }
@@ -824,7 +824,7 @@
       }
     }
 
-    .fa {
+    .fa-solid {
       color: $dark-text-color;
     }
   }
@@ -1631,7 +1631,7 @@ a.account__display-name {
   line-height: 22px;
   position: relative;
 
-  .fa {
+  .fa-solid {
     color: $highlight-text-color;
   }
 
@@ -2256,7 +2256,7 @@ a.account__display-name {
   transition: all 50ms linear;
   transition-property: border-bottom, background, color;
 
-  .fa {
+  .fa-solid {
     font-weight: 400;
     font-size: 16px;
   }
@@ -2321,7 +2321,7 @@ a.account__display-name {
     padding-right: 30px;
   }
 
-  .search__icon .fa {
+  .search__icon .fa-solid {
     top: 15px;
   }
 
@@ -3284,7 +3284,7 @@ a.status-card {
   background: lighten($ui-base-color, 8%);
   position: relative;
 
-  & > .fa {
+  & > .fa-solid {
     font-size: 21px;
     position: absolute;
     transform-origin: 50% 50%;
@@ -4261,7 +4261,7 @@ a.status-card.compact:hover {
   overflow: hidden;
   display: flex;
 
-  .fa {
+  .fa-solid {
     font-size: 34px;
     margin-right: 10px;
   }
@@ -4483,7 +4483,7 @@ a.status-card.compact:hover {
     outline: 0 !important;
   }
 
-  .fa {
+  .fa-solid {
     position: absolute;
     top: 16px;
     right: 10px;
@@ -4538,7 +4538,7 @@ a.status-card.compact:hover {
   font-size: 16px;
   cursor: default;
 
-  .fa {
+  .fa-solid {
     display: inline-block;
     margin-right: 5px;
   }
@@ -4557,7 +4557,7 @@ a.status-card.compact:hover {
     font-size: 16px;
     color: $dark-text-color;
 
-    .fa {
+    .fa-solid {
       display: inline-block;
       margin-right: 5px;
     }
@@ -5650,7 +5650,7 @@ a.status-card.compact:hover {
     justify-content: center;
     font-size: 26px;
 
-    .fa {
+    .fa-solid {
       display: block;
     }
   }
@@ -5688,7 +5688,7 @@ a.status-card.compact:hover {
       display: block;
     }
 
-    .fa {
+    .fa-solid {
       color: $dark-text-color;
     }
   }
@@ -7058,7 +7058,7 @@ noscript {
     font-size: 16px;
     cursor: default;
 
-    .fa {
+    .fa-solid {
       display: inline-block;
       margin-right: 5px;
     }
@@ -7616,7 +7616,7 @@ noscript {
     }
   }
 
-  .search .fa {
+  .search .fa-solid {
     top: 10px;
     right: 10px;
     color: $dark-text-color;
