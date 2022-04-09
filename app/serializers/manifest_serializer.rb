@@ -57,7 +57,7 @@ class ManifestSerializer < ActiveModel::Serializer
   end
 
   def start_url
-    '/web/timelines/home'
+    '/web/home'
   end
 
   def scope
@@ -82,7 +82,7 @@ class ManifestSerializer < ActiveModel::Serializer
     [
       {
         name: 'New toot',
-        url: '/web/statuses/new',
+        url: '/web/publish',
         icons: [
           {
             src: '/shortcuts/new-status.png',
@@ -104,7 +104,7 @@ class ManifestSerializer < ActiveModel::Serializer
       },
       {
         name: 'Direct messages',
-        url: '/web/timelines/direct',
+        url: '/web/conversations',
         icons: [
           {
             src: '/shortcuts/direct.png',
