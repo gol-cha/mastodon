@@ -55,7 +55,8 @@ class MediaAttachment < ApplicationRecord
     small
   ).freeze
 
-  IMAGE_MIME_TYPES             = %w(image/jpeg image/png image/gif).freeze
+  IMAGE_MIME_TYPES             = %w(image/jpeg image/png image/gif image/webp image/heic image/heif).freeze
+  IMAGE_CONVERTIBLE_MIME_TYPES = %w(image/webp image/heic image/heif).freeze
   VIDEO_MIME_TYPES             = %w(video/webm video/mp4 video/quicktime video/ogg).freeze
   VIDEO_CONVERTIBLE_MIME_TYPES = %w(video/webm video/quicktime).freeze
   AUDIO_MIME_TYPES             = %w(audio/wave audio/wav audio/x-wav audio/x-pn-wave audio/ogg audio/vorbis audio/mpeg audio/mp3 audio/webm audio/flac audio/aac audio/m4a audio/x-m4a audio/mp4 audio/3gpp video/x-ms-asf).freeze
@@ -76,6 +77,11 @@ class MediaAttachment < ApplicationRecord
       file_geometry_parser: FastGeometryParser,
       blurhash: BLURHASH_OPTIONS,
     }.freeze,
+  }.freeze
+
+  IMAGE_CONVERTED_STYLES = {
+    small: IMAGE_STYLES[:small].merge(format: 'jpg').freeze,
+    original: IMAGE_STYLES[:original].merge(format: 'jpg').freeze,
   }.freeze
 
   VIDEO_FORMAT = {
@@ -277,6 +283,8 @@ class MediaAttachment < ApplicationRecord
     def file_styles(attachment)
       if attachment.instance.file_content_type == 'image/gif' || VIDEO_CONVERTIBLE_MIME_TYPES.include?(attachment.instance.file_content_type)
         VIDEO_CONVERTED_STYLES
+      elsif IMAGE_CONVERTIBLE_MIME_TYPES.include?(attachment.instance.file_content_type)
+        IMAGE_CONVERTED_STYLES
       elsif IMAGE_MIME_TYPES.include?(attachment.instance.file_content_type)
         IMAGE_STYLES
       elsif VIDEO_MIME_TYPES.include?(attachment.instance.file_content_type)
