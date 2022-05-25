@@ -44,7 +44,7 @@ class MediaAttachment < ApplicationRecord
   MAX_VIDEO_MATRIX_LIMIT = 2_304_000 # 1920x1200px
   MAX_VIDEO_FRAME_RATE   = 60
 
-  IMAGE_FILE_EXTENSIONS = %w(.jpg .jpeg .png .gif).freeze
+  IMAGE_FILE_EXTENSIONS = %w(.jpg .jpeg .png .gif .webp .heic .heif).freeze
   VIDEO_FILE_EXTENSIONS = %w(.webm .mp4 .m4v .mov).freeze
   AUDIO_FILE_EXTENSIONS = %w(.ogg .oga .mp3 .wav .flac .opus .aac .m4a .3gp .wma).freeze
 
@@ -80,8 +80,8 @@ class MediaAttachment < ApplicationRecord
   }.freeze
 
   IMAGE_CONVERTED_STYLES = {
-    small: IMAGE_STYLES[:small].merge(format: 'jpg').freeze,
-    original: IMAGE_STYLES[:original].merge(format: 'jpg').freeze,
+    small: IMAGE_STYLES[:small].merge(format: 'webp', content_type: 'image/webp').freeze,
+    original: IMAGE_STYLES[:original].merge(format: 'jpg', content_type: 'image/jpeg').freeze,
   }.freeze
 
   VIDEO_FORMAT = {
