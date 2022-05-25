@@ -80,7 +80,7 @@ class MediaAttachment < ApplicationRecord
   }.freeze
 
   IMAGE_CONVERTED_STYLES = {
-    small: IMAGE_STYLES[:small].merge(format: 'webp', content_type: 'image/webp').freeze,
+    small: IMAGE_STYLES[:small].merge(format: 'jpg', content_type: 'image/jpeg').freeze,
     original: IMAGE_STYLES[:original].merge(format: 'jpg', content_type: 'image/jpeg').freeze,
   }.freeze
 
