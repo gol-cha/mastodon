@@ -1245,10 +1245,10 @@
   resolved "https://registry.yarnpkg.com/@formatjs/intl-utils/-/intl-utils-2.2.5.tgz#eaafd94df3d102ee13e54e80f992a33868a6b1e8"
   integrity sha512-p7gcmazKROteL4IECCp03Qrs790fZ8tbemUAjQu0+K0AaAlK49rI1SIFFq3LzDUAqXIshV95JJhRe/yXxkal5g==
 
-"@fortawesome/fontawesome-free@^6.1.1":
-  version "6.1.1"
-  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.1.1.tgz#bf5d45611ab74890be386712a0e5d998c65ee2a1"
-  integrity sha512-J/3yg2AIXc9wznaVqpHVX3Wa5jwKovVF0AMYSnbmcXTiL3PpRPfF58pzWucCwEiCJBp+hCNRLWClTomD8SseKg==
+"@fortawesome/fontawesome-free@^6.1.2":
+  version "6.1.2"
+  resolved "https://registry.yarnpkg.com/@fortawesome/fontawesome-free/-/fontawesome-free-6.1.2.tgz#d18880eddeadd42b1c64cb559f2f3d13d47a4a64"
+  integrity sha512-XwWADtfdSN73/udaFm+1mnGIj/ShDZNFMe/PRoqv3FhQ4GNI2PUN70yFTPsjq65Lw2C9i4TG5/hTbxXIXVCiqQ==
 
 "@gamestdio/websocket@^0.3.2":
   version "0.3.2"
