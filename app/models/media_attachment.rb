@@ -44,7 +44,7 @@ class MediaAttachment < ApplicationRecord
   MAX_VIDEO_MATRIX_LIMIT = 2_304_000 # 1920x1200px
   MAX_VIDEO_FRAME_RATE   = 60
 
-  IMAGE_FILE_EXTENSIONS = %w(.jpg .jpeg .png .gif .webp .heic .heif).freeze
+  IMAGE_FILE_EXTENSIONS = %w(.jpg .jpeg .png .gif .webp .heic .heif .avif).freeze
   VIDEO_FILE_EXTENSIONS = %w(.webm .mp4 .m4v .mov).freeze
   AUDIO_FILE_EXTENSIONS = %w(.ogg .oga .mp3 .wav .flac .opus .aac .m4a .3gp .wma).freeze
 
@@ -55,8 +55,8 @@ class MediaAttachment < ApplicationRecord
     small
   ).freeze
 
-  IMAGE_MIME_TYPES             = %w(image/jpeg image/png image/gif image/webp image/heic image/heif).freeze
-  IMAGE_CONVERTIBLE_MIME_TYPES = %w(image/webp image/heic image/heif).freeze
+  IMAGE_MIME_TYPES             = %w(image/jpeg image/png image/gif image/heic image/heif image/webp image/avif).freeze
+  IMAGE_CONVERTIBLE_MIME_TYPES = %w(image/heic image/heif).freeze
   VIDEO_MIME_TYPES             = %w(video/webm video/mp4 video/quicktime video/ogg).freeze
   VIDEO_CONVERTIBLE_MIME_TYPES = %w(video/webm video/quicktime).freeze
   AUDIO_MIME_TYPES             = %w(audio/wave audio/wav audio/x-wav audio/x-pn-wave audio/vnd.wave audio/ogg audio/vorbis audio/mpeg audio/mp3 audio/webm audio/flac audio/aac audio/m4a audio/x-m4a audio/mp4 audio/3gpp video/x-ms-asf).freeze
@@ -73,15 +73,20 @@ class MediaAttachment < ApplicationRecord
     }.freeze,
 
     small: {
-      pixels: 160_000, # 400x400px
+      pixels: 230_400, # 640x360px
       file_geometry_parser: FastGeometryParser,
       blurhash: BLURHASH_OPTIONS,
     }.freeze,
   }.freeze
 
   IMAGE_CONVERTED_STYLES = {
-    small: IMAGE_STYLES[:small].merge(format: 'jpg', content_type: 'image/jpeg').freeze,
-    original: IMAGE_STYLES[:original].merge(format: 'jpg', content_type: 'image/jpeg').freeze,
+    original: {
+      format: 'jpeg',
+    }.merge(IMAGE_STYLES[:original]).freeze,
+
+    small: {
+      format: 'jpeg',
+    }.merge(IMAGE_STYLES[:small]).freeze,
   }.freeze
 
   VIDEO_FORMAT = {
@@ -254,11 +259,11 @@ class MediaAttachment < ApplicationRecord
   attr_writer :delay_processing
 
   def delay_processing?
-    @delay_processing
+    @delay_processing && larger_media_format?
   end
 
   def delay_processing_for_attachment?(attachment_name)
-    @delay_processing && attachment_name == :file
+    delay_processing? && attachment_name == :file
   end
 
   after_commit :enqueue_processing, on: :create
