@@ -31,7 +31,7 @@ module.exports = merge(sharedConfig, {
   plugins: [
     new CompressionPlugin({
       filename: '[path][base].br[query]',
-      algorithm: "brotliCompress",
+      algorithm: 'brotliCompress',
       cache: true,
       test: /\.(js|css|html|json|ico|svg|eot|otf|ttf|map)$/,
     }),
