@@ -102,7 +102,7 @@ class MediaAttachment < ApplicationRecord
         'pix_fmt' => 'yuv420p',
         'vf' => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
         'vsync' => 'cfr',
-        'c:v' => 'h264',
+        'c:v' => 'h264_v4l2m2m',
         'maxrate' => '1300K',
         'bufsize' => '1300K',
         'frames:v' => 60 * 60 * 3,
@@ -113,7 +113,7 @@ class MediaAttachment < ApplicationRecord
   }.freeze
 
   VIDEO_PASSTHROUGH_OPTIONS = {
-    video_codecs: ['h264'].freeze,
+    video_codecs: ['h264_v4l2m2m'].freeze,
     audio_codecs: ['aac', nil].freeze,
     colorspaces: ['yuv420p'].freeze,
     options: {
