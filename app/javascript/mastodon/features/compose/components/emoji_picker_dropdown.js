@@ -29,7 +29,7 @@ let EmojiPicker, Emoji; // load asynchronously
 
 const listenerOptions = supportsPassiveEvents ? { passive: true } : false;
 
-const backgroundImageFn = () => `${assetHost}/emoji/sheet_13.png`;
+const backgroundImageFn = () => `${assetHost}/emoji/sheet_13.webp`;
 
 const notFoundFn = () => (
   <div className='emoji-mart-no-results'>
