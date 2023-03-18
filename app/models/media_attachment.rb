@@ -102,7 +102,7 @@ class MediaAttachment < ApplicationRecord
         'pix_fmt' => 'yuv420p',
         'vf' => 'scale=\'trunc(iw/2)*2:trunc(ih/2)*2\'',
         'vsync' => 'cfr',
-        'c:v' => 'h264_v4l2m2m',
+        'c:v' => ENV.fetch('DEFAULT_VIDEO_CODEC', 'h264'),
         'maxrate' => '1300K',
         'bufsize' => '1300K',
         'b:v' => '1300K',
