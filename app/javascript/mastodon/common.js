@@ -1,8 +1,8 @@
 import Rails from '@rails/ujs';
+import '@fortawesome/fontawesome-free/css/fontawesome.css';
+import '@fortawesome/fontawesome-free/css/solid.css';
 
 export function start() {
-  require('@fortawesome/fontawesome-free/css/fontawesome.css');
-  require('@fortawesome/fontawesome-free/css/solid.css');
   require.context('../images/', true);
 
   try {
