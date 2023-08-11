@@ -7,9 +7,9 @@ class StatusesIndex < Chewy::Index
     analyzer: {
       content: {
         char_filter: %w(
-          icu_normalizer                    
+          icu_normalizer
         ),
-        type: 'custom', 
+        type: 'custom',
         tokenizer: 'kuromoji_tokenizer',
         filter: %w(
           kuromoji_baseform
