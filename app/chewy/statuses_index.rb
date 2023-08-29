@@ -3,7 +3,22 @@
 class StatusesIndex < Chewy::Index
   include FormattingHelper
 
-  settings index: { refresh_interval: '30s' }, analysis: {
+  settings index: index_preset(refresh_interval: '30s', number_of_shards: 5), analysis: {
+    filter: {
+      english_stop: {
+        type: 'stop',
+        stopwords: '_english_',
+      },
+      english_stemmer: {
+        type: 'stemmer',
+        language: 'english',
+      },
+      english_possessive_stemmer: {
+        type: 'stemmer',
+        language: 'possessive_english',
+      },
+    },
+
     analyzer: {
       content: {
         char_filter: %w(
