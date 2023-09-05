@@ -54,18 +54,29 @@ class PublicStatusesIndex < Chewy::Index
           search_sudachi_split
         ),
       },
+
+      hashtag: {
+        tokenizer: 'keyword',
+        filter: %w(
+          word_delimiter_graph
+          lowercase
+          asciifolding
+          cjk_width
+        ),
+      },
     },
   }
 
   index_scope ::Status.unscoped
                       .kept
                       .indexable
-                      .includes(:media_attachments, :preloadable_poll, :preview_cards)
+                      .includes(:media_attachments, :preloadable_poll, :preview_cards, :tags)
 
   root date_detection: false do
     field(:id, type: 'long')
     field(:account_id, type: 'long')
     field(:text, type: 'text', analyzer: 'verbatim', value: ->(status) { status.searchable_text }) { field(:stemmed, type: 'text', analyzer: 'content') }
+    field(:tags, type: 'text', analyzer: 'hashtag', value: ->(status) { status.tags.map(&:display_name) })
     field(:language, type: 'keyword')
     field(:properties, type: 'keyword', value: ->(status) { status.searchable_properties })
     field(:created_at, type: 'date')
