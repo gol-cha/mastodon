@@ -17,6 +17,18 @@ class StatusesIndex < Chewy::Index
         type: 'stemmer',
         language: 'possessive_english',
       },
+
+      search_sudachi_split: {
+        type: 'sudachi_split',
+        mode: 'search',
+      },
+    },
+
+    tokenizer: {
+      sudachi_tokenizer: {
+        type: 'sudachi_tokenizer',
+        discard_punctuation: true,
+      },
     },
 
     analyzer: {
@@ -26,23 +38,20 @@ class StatusesIndex < Chewy::Index
       },
 
       content: {
-        char_filter: %w(
-          icu_normalizer
-        ),
         type: 'custom',
-        tokenizer: 'kuromoji_tokenizer',
+        tokenizer: 'sudachi_tokenizer',
         filter: %w(
-          kuromoji_baseform
-          kuromoji_part_of_speech
-          cjk_width
-          ja_stop
-          kuromoji_stemmer
           lowercase
           asciifolding
+          cjk_width
           elision
           english_possessive_stemmer
           english_stop
           english_stemmer
+          sudachi_part_of_speech
+          sudachi_ja_stop
+          sudachi_baseform
+          search_sudachi_split
         ),
       },
     },

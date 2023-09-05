@@ -17,6 +17,18 @@ class PublicStatusesIndex < Chewy::Index
         type: 'stemmer',
         language: 'possessive_english',
       },
+
+      search_sudachi_split: {
+        type: 'sudachi_split',
+        mode: 'search',
+      },
+    },
+
+    tokenizer: {
+      sudachi_tokenizer: {
+        type: 'sudachi_tokenizer',
+        discard_punctuation: true,
+      },
     },
 
     analyzer: {
@@ -26,7 +38,8 @@ class PublicStatusesIndex < Chewy::Index
       },
 
       content: {
-        tokenizer: 'standard',
+        type: 'custom',
+        tokenizer: 'sudachi_tokenizer',
         filter: %w(
           lowercase
           asciifolding
@@ -35,6 +48,10 @@ class PublicStatusesIndex < Chewy::Index
           english_possessive_stemmer
           english_stop
           english_stemmer
+          sudachi_part_of_speech
+          sudachi_ja_stop
+          sudachi_baseform
+          search_sudachi_split
         ),
       },
     },
