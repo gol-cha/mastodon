@@ -152,7 +152,7 @@ export const DetailedStatus: React.FC<{
     media = <PictureInPicturePlaceholder aspectRatio={attachmentAspectRatio} />;
   } else if (status.get('media_attachments').size > 0) {
     if (
-      ['image', 'gifv', 'unknown'].includes(
+      ['image', 'gifv'].includes(
         status.getIn(['media_attachments', 0, 'type']) as string,
       ) ||
       status.get('media_attachments').size > 1

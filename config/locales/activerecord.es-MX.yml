@@ -42,7 +42,7 @@ es-MX:
         status:
           attributes:
             reblog:
-              taken: de la publicación ya existe
+              taken: del estado ya existe
         user:
           attributes:
             email:

@@ -21,7 +21,6 @@ fi:
       one: Julkaisu
       other: viestiä
     posts_tab_heading: Julkaisut
-    self_follow_error: Oman tilisi seuraaminen ei ole sallittua
   admin:
     account_actions:
       action: Suorita toimi
@@ -216,7 +215,7 @@ fi:
         reopen_report: Avaa raportti uudelleen
         resend_user: Lähetä vahvistusviesti uudelleen
         reset_password_user: Palauta salasana
-        resolve_report: Ratkaise raportti
+        resolve_report: Selvitä raportti
         sensitive_account: Pakota arkaluonteiseksi tiliksi
         silence_account: Rajoita tiliä
         suspend_account: Jäädytä tili
@@ -334,8 +333,8 @@ fi:
       enabled: Käytössä
       enabled_msg: Emoji otettiin käyttöön onnistuneesti
       image_hint: PNG tai GIF, enintään %{size}
-      list: Lisää listaan
-      listed: Listassa
+      list: Lisää listalle
+      listed: Listalla
       new:
         title: Lisää uusi mukautettu emoji
       no_emoji_selected: Emojeita ei muutettu, koska yhtään ei ollut valittuna
@@ -345,8 +344,8 @@ fi:
       shortcode_hint: Vähintään 2 merkkiä, vain kirjaimia, numeroita ja alaviivoja
       title: Mukautetut emojit
       uncategorized: Luokittelematon
-      unlist: Poista listasta
-      unlisted: Ei listassa
+      unlist: Poista listalta
+      unlisted: Ei listalla
       update_failed_msg: Emojin päivitys epäonnistui
       updated_msg: Emojin päivitys onnistui!
       upload: Lähetä
@@ -833,7 +832,7 @@ fi:
       original_status: Alkuperäinen julkaisu
       reblogs: Edelleen jako
       status_changed: Julkaisua muutettu
-      title: Tilin julkaisut
+      title: Tilin tilat
       trending: Suosituttua
       visibility: Näkyvyys
       with_media: Sisältää mediaa
@@ -1260,7 +1259,7 @@ fi:
       title: Turvallisuusvahvistus epäonnistui
     '429': Rajoitettu
     '500':
-      content: Valitettavasti jotain meni pieleen meidän päässämme.
+      content: Valitettavasti jokin meni pieleen meidän päässämme.
       title: Sivu ei ole oikein
     '503': Sivua ei voitu näyttää palvelimen väliaikaisen vian vuoksi.
     noscript_html: Käyttääksesi Mastodonin verkkosovellusta, ota JavaScript käyttöön. Vaihtoehtoisesti voit kokeilla käyttämällesi alustalle kehitettyjä Mastodonin <a href="%{apps_path}">natiivisovelluksia</a>.

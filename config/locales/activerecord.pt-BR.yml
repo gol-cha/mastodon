@@ -38,7 +38,7 @@ pt-BR:
         import:
           attributes:
             data:
-              malformed: Está malformado
+              malformed: está malformado
         status:
           attributes:
             reblog:
