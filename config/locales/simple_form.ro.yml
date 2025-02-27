@@ -79,6 +79,7 @@ ro:
         chosen_languages: Doar postările în limbile selectate vor fi afișate în fluxurile publice
     labels:
       account:
+        attribution_domains_as_text: Site-uri web care vă pot credita
         fields:
           name: Etichetă
           value: Conținut
