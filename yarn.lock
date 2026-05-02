@@ -6572,14 +6572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.0.3":
-  version: 16.5.0
-  resolution: "dotenv@npm:16.5.0"
-  checksum: 10c0/5bc94c919fbd955bf0ba44d33922a1e93d1078e64a1db5c30faeded1d996e7a83c55332cb8ea4fae5a9ca4d0be44cbceb95c5811e70f9f095298df09d1997dd9
-  languageName: node
-  linkType: hard
-
-"dotenv@npm:^16.4.2":
+"dotenv@npm:^16.0.3, dotenv@npm:^16.4.2":
   version: 16.6.1
   resolution: "dotenv@npm:16.6.1"
   checksum: 10c0/15ce56608326ea0d1d9414a5c8ee6dcf0fffc79d2c16422b4ac2268e7e2d76ff5a572d37ffe747c377de12005f14b3cc22361e79fc7f1061cce81f77d2c973dc
@@ -12651,17 +12644,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"source-map@npm:^0.7.3":
+"source-map@npm:^0.7.3, source-map@npm:^0.7.4":
   version: 0.7.6
   resolution: "source-map@npm:0.7.6"
   checksum: 10c0/59f6f05538539b274ba771d2e9e32f6c65451982510564438e048bc1352f019c6efcdc6dd07909b1968144941c14015c2c7d4369fb7c4d7d53ae769716dcc16c
-  languageName: node
-  linkType: hard
-
-"source-map@npm:^0.7.4":
-  version: 0.7.4
-  resolution: "source-map@npm:0.7.4"
-  checksum: 10c0/dc0cf3768fe23c345ea8760487f8c97ef6fca8a73c83cd7c9bf2fde8bc2c34adb9c0824d6feb14bc4f9e37fb522e18af621543f1289038a66ac7586da29aa7dc
   languageName: node
   linkType: hard
 
@@ -12811,8 +12797,8 @@ __metadata:
   linkType: hard
 
 "storybook@npm:^9.1.1":
-  version: 9.1.7
-  resolution: "storybook@npm:9.1.7"
+  version: 9.1.20
+  resolution: "storybook@npm:9.1.20"
   dependencies:
     "@storybook/global": "npm:^5.0.0"
     "@testing-library/jest-dom": "npm:^6.6.3"
@@ -12833,7 +12819,7 @@ __metadata:
       optional: true
   bin:
     storybook: ./bin/index.cjs
-  checksum: 10c0/daf3fb47ada1368604db7a1bc53775a5ceb485cd103351670e74d3378cb7bc1e396f72530a4821f3919207fb55ce7904ce894f55566844f9a14279553a8bd534
+  checksum: 10c0/d510837e81297e83119a8cf827818231ff9c99299d7c4f29407a8317ac151803d8784d891fa1a4983be1998417abbcaad27cd21e47dd33f4da2d246014eb68cf
   languageName: node
   linkType: hard
 
