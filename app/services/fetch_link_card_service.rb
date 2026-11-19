@@ -15,12 +15,9 @@ class FetchLinkCardService < BaseService
     )
   }iox
 
-  # URL size limit to safely store in PosgreSQL's unique indexes
-  BYTESIZE_LIMIT = 2692
-
-  def call(status)
+  def call(status, original_url = nil)
     @status       = status
-    @original_url = parse_urls
+    @original_url = original_url || parse_urls
 
     return if @original_url.nil? || @status.with_preview_card? || @status.with_media? || @status.quote.present?
 
@@ -94,7 +91,7 @@ class FetchLinkCardService < BaseService
 
   def bad_url?(uri)
     # Avoid local instance URLs and invalid URLs
-    uri.host.blank? || TagManager.instance.local_url?(uri.to_s) || !%w(http https).include?(uri.scheme) || uri.to_s.bytesize > BYTESIZE_LIMIT
+    uri.host.blank? || TagManager.instance.local_url?(uri.to_s) || !%w(http https).include?(uri.scheme)
   end
 
   def mention_link?(anchor)
